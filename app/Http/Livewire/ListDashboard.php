@@ -18,14 +18,13 @@ class ListDashboard extends Component
 	{
 
 		$this->lists = Post_raw::all();
-
+		$this->desarray = Post_raw::all('des_mas')->toJSON();
 		$this->latarray = Post_raw::all('lat')->toJSON();
 		$this->lngarray = Post_raw::all('lng')->toJSON();
+
 		$this->dispatchBrowserEvent('latitude-loaded',[
 			'latitudes' => $this->latitudes = $this->latarray
 		]);
-
-		// dd($this->latitudes);
 
 		$this->dispatchBrowserEvent('longitude-loaded',[
 			'longitudes' => $this->longitudes = $this->lngarray

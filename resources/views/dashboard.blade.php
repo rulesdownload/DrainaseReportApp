@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
+            {{ __('Selamat Datang di Aplikasi Layanan Aduan Saluran Air Bermasalah di Manado') }}
         </h2>
     </x-slot>
 

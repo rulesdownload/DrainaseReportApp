@@ -9,6 +9,7 @@
       <th scope="col">Status Laporan</th>
       <th scope="col">Jenis Permasalahan</th>
       <th scope="col">Tipe Drainase</th>
+      <th scope="col">Status</th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +23,7 @@
       <td>{{ $report->status->parameter}}}</td>
       <td>{{ $report->problem->problem }}</td>
       <td>{{ $report->type->tipe}}</td>
+      <td>{{ $report->status->parameter}}</td>
       </div>
     </tr>
     	@endforeach
