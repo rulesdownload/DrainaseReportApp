@@ -19,8 +19,8 @@ class ListDashboard extends Component
 
 		$this->lists = Post_raw::all();
 
-		$this->latarray = Post_raw::all('lat')->toJSON();
-		$this->lngarray = Post_raw::all('lng')->toJSON();
+		$this->latarray = Post_raw::all('lat','problem_id')->toJSON();
+		$this->lngarray = Post_raw::all('lng','problem_id')->toJSON();
 		$this->dispatchBrowserEvent('latitude-loaded',[
 			'latitudes' => $this->latitudes = $this->latarray
 		]);
