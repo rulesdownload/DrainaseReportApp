@@ -163,13 +163,6 @@
   });
 
 }
-	document.addEventListener('livewire:load', function () {
-	google.maps.event.addDomListener(window, "load", initialize);
-
-});
-
-
-
         
 </script>
 

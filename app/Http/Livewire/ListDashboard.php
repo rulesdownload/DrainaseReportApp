@@ -13,6 +13,7 @@ class ListDashboard extends Component
 	public $longitudes = [];
 	public $latarray = [];
 	public $lngarray = [];
+	protected $listener = ['DetailPost'];
 
 	public function mount()
 	{
@@ -32,6 +33,13 @@ class ListDashboard extends Component
 		]);
 
 	}
+
+    public function DetailPost()
+    {
+
+    	$this->emit('toggleGalaxyFormModal');
+
+    }
 
     public function render()
     {
