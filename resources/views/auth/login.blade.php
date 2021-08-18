@@ -9,6 +9,7 @@
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
+        
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -52,5 +53,31 @@
                 </x-button>
             </div>
         </form>
+            <a  style="height:50px;width:240px;" class="abcRioButton abcRioButtonBlue btn btn-google btn-block" href="{{route('google.redirect')}}"> Sign in with Google</a>
+
+        
     </x-auth-card>
 </x-guest-layout>
+
+<script>
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getId());
+      console.log(googleUser.getBasicProfile()); 
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+  </script>
+
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>

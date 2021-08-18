@@ -53,7 +53,7 @@
 </script>
 @endsection
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrFLi96zuuekA3nlI5TllQ--4ktUMvoF8&libraries=places&callback=initmap"
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{config('services.google.key')}}&libraries=places&callback=initmap"
   type="text/javascript"></script>
 
 <script type="text/javascript">

@@ -6,6 +6,7 @@ use App\Http\Livewire\KelolaPost;
 use App\Http\Livewire\Action;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Frontend\ReportController;
+use App\Http\Controllers\GoogleAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +32,15 @@ Route::get('/laporan',[ReportController::class, 'render'])->middleware(['auth'])
 Route::get('/show',[ReportController::class,'view'])->middleware(['auth'])->name('show');
 require __DIR__.'/auth.php';
 
+//google sign in
+Route::get('/auth/google', function () {
+    return Socialite::driver('google')->redirect();
+  })->name('google.redirect');
+
+Route::get('/auth/google/callback', [GoogleAuthController::class,'RespondCallback'])->name('google.callback');
+
 Route::group(['middleware' =>['auth']], function() {
-	route::get('/dashboard',[HomeController::class,'render'])->name('dashboard');
+Route::get('/dashboard',[HomeController::class,'render'])->name('dashboard');
 });
 Route::prefix('admin')->group(function () {
     // Route::get('/dashboard', function () {
