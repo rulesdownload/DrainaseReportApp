@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class drainaseTypes extends Model
 {
     use HasFactory;
+    protected $fillable = ['tipe'];
 }

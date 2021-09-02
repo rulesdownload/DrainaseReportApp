@@ -16,9 +16,14 @@ class limitaccess
      */
     public function handle($request, Closure $next, ...$levels)
     {
+        if($request->user() == null)
+        {
+            return redirect('/');
+        }
+
         if(in_array($request->user()->level,$levels)){
             return $next($request);
         }
-        return redirect('/');
+            return redirect('/');
     }
 }
