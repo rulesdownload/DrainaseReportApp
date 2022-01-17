@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\drainaseProblems;
 use App\Models\Marker;
 use App\Models\District;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 
 class ListDashboard extends Component
@@ -19,7 +20,6 @@ class ListDashboard extends Component
 	public $problems = [];
 	public $latarray = [];
 	public $lngarray = [];
-	public $problemlists = [];
 	public $markerlist = [];
 	public $sortby = 'id';
 	public $direction = 'asc';
@@ -27,19 +27,28 @@ class ListDashboard extends Component
 
 	public function mount()
 	{
+		//flatmap iterasi
+		$this->posts = Post_raw::all()->toJSON();
+		$this->postsflat = Post_raw::all()->flatmap(function($item, $key){
 
-		$this->posts = Post_raw::all('problem_id');
-		$this->problemlists = drainaseProblems::find($this->posts,'marker_id');
-		$this->markerlists = Marker::find($this->problemlists)->toJSON();
+			$this->problemlists = drainaseProblems::all()->where('id','=', $item['problem_id']);
+			return $this->problemlists;
+		});
+
+		$this->markerlists = $this->postsflat->flatmap(function($item, $key){
+			$this->markerfind = Marker::all()->where('id','=',$item['marker_id']);
+			return $this->markerfind;
+		});
+
 		$this->latarray = Post_raw::all('lat','problem_id')->toJSON();
 		$this->lngarray = Post_raw::all('lng','problem_id')->toJSON();
 
 		$this->dispatchBrowserEvent('problem-loaded',[
-			'problems' => $this->problems = $this->problemlists
+			'problems' => $this->problems = $this->posts
 		]);
 
 		$this->dispatchBrowserEvent('marker-loaded',[
-			'markers' => $this->markers = $this->markerlists
+			'markers' => $this->markers = $this->markerlists->toJSON()
 		]);
 
 
@@ -72,9 +81,11 @@ class ListDashboard extends Component
     {
 
 		$lists = Post_raw::orderBy($this->sortby, $this->direction);
-
+		
         return view('livewire.list-dashboard', [
         	'lists' => $lists->get(),
+        	'problemos' => drainaseProblems::all()->sortby('marker_id'),
+        	'fotos' => Marker::all()
         ]);
     }
 }

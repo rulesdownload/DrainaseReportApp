@@ -20,12 +20,9 @@ use App\Http\Controllers\GoogleAuthController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
 
 //laporan
 Route::get('/laporan',[ReportController::class, 'render'])->middleware(['auth'])->name('laporan');
@@ -39,21 +36,14 @@ Route::get('/auth/google', function () {
 
 Route::get('/auth/google/callback', [GoogleAuthController::class,'RespondCallback'])->name('google.callback');
 
-Route::group(['middleware' =>['auth']], function() {
+
 Route::get('/dashboard',[HomeController::class,'render'])->name('dashboard');
-});
+
+
 Route::prefix('admin')->group(function () {
-    // Route::get('/dashboard', function () {
-    //     // Matches The "/admin/users" URL
-    //     return view('admin.dashboard');
-    // })->middleware(['admin:admin'])->name('dashboard');
+
    Route::get('/kelola',[AdminController::class, 'ShowPost'])->middleware(['admin:admin'])->name('posts');
    Route::get('/kelola/{id}',KelolaPost::class)->middleware(['admin:admin'])->name('kelola');
    Route::get('/action',[AdminController::class, 'Action'])->middleware(['admin:admin'])->name('action');
 
 });
-	// Route::resource('','');
-		// Route::group (['middleware' => 'limitaccess'], function(){
-		// 	Route::resource('dashboard', 'AdminController');
-		// });
-	

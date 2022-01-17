@@ -87,7 +87,7 @@ class Action extends Component
 			$tipemdelete->delete();
 		}
 		session()->flash('messagedelete', 'Data Berhasil Dihapus.');
-		return redirect()->route('action');
+		// return redirect()->route('action');
 	}
 
 	public function createtipe()
@@ -100,7 +100,7 @@ class Action extends Component
 			'tipe' => $this->barutipe
 		]);
 		session()->flash('message', 'Data Berhasil Dibuat.');
-		return redirect()->route('action');
+		// return redirect()->route('action');
 
 	}
 
@@ -123,7 +123,7 @@ class Action extends Component
 		]);
 
 		session()->flash('message', 'Data Berhasil Dibuat.');
-		return redirect()->route('action');
+		// return redirect()->route('action');
 	}
 
 	public function updateTipe($id)

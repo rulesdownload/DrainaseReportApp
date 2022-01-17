@@ -50,7 +50,7 @@ class KelolaPost extends Component
 		$this->photos = additionalphotos::where('post_raw_id', $reports->id)->get();
 
 //jika status id = 1(belum dibaca) maka nilai berubah jadi 2 (telah dibaca) 
-		if($this->posts->status_id = 1){
+		if($this->posts->status_id == 1){
 			$this->posts->status_id = 2;
 			$this->posts->save();
 		}

@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+
         <title> Selamat Datang Di Layanan Aduan Saluran Air Bermasalah Kota Manado</title>
 
         <!-- Fonts -->
@@ -36,11 +37,12 @@
             </header>
 
             <!-- Page Content -->
+            @livewireScripts
             <main>
                 {{ $slot }}
             </main>
         </div>
-        @livewireScripts
+        
     </body>
 
     @yield('scripts')

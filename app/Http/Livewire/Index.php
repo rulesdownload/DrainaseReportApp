@@ -20,7 +20,6 @@ class Index extends Component
 	public $reports;
 	public $latitude;
 	public $longitude;
-	public $renderedLater;
 	public $photos = [];
 
 	//komentar
@@ -28,25 +27,11 @@ class Index extends Component
 	public $comment_input;
 	public $commentprompt;
 
-	public function loadPosts($uid, $renderedLater = false)
+	public function loadPosts($uid)
 	{
-		// return view('livewire.index', [
-			// $this->'posts' => Post_raw::all()->get($uid),
-		// ]);			
-		// $reports = Post_raw::where('id',$uid)->first();
-
-
-			// $detail = Post_raw::find($this->detail_id);
-		// $reports = Post_raw::where('id',$uid)->first();
-		// $this->posts = $repots->get($uid) ?? '';
-		// return Post_raw::all($this->reports)->get($uid);	
-		// $reports = Post_raw::where('id',$uid)->first();
-		// $this->posts($reports->get($uid));
-
 		$reports = Post_raw::all()->get($uid);
 		$this->posts = $reports;
 		$this->postId = $reports->id;
-		$this->renderedLater = $renderedLater;
 
 		$this->dispatchBrowserEvent('latitude-loaded', ['alat' => $this->latitude = $reports->lat]);
 		$this->dispatchBrowserEvent('longitude-loaded', ['alng' => $this->longitude = $reports->lng]);
@@ -58,6 +43,7 @@ class Index extends Component
     	$this->districts = District::where('id', $reports->district_id)->get();
 
 		$this->emit('toggleGalaxyFormModal');
+		$this->emit('confirmDestroy', $uid);
 	}
 
 	protected function rules()
@@ -72,6 +58,11 @@ class Index extends Component
     {
         $this->commentprompt = "Komentar berhasil terkirim";
 
+    }
+
+    public function confirmDestroy()
+    {
+    	
     }
 
     public function addComment()
