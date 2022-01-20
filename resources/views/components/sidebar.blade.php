@@ -16,15 +16,19 @@
 				</a>
 			</li>
 
+			@if(Auth::check() && Auth::user()->level == "admin")
 			<li class="c-sidebar-nav-item">
 				<a class="c-sidebar-nav-link" href="/admin/kelola">
 					Kelola Laporan (Admin)
 				</a>
 			</li>
-
-			<li class="c-sidebar-nav-title">Pengaturan</li>
-			<li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/admin/action">
-				 Action</a></li>
+			@endif
+			
+			@if(Auth::check() && Auth::user()->level == "admin")
+				<li class="c-sidebar-nav-title">Pengaturan</li>
+				<li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/admin/action">
+					 Action</a></li>
+			@endif
 
 			<li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="typography.html">
 				<svg class="c-sidebar-nav-icon">
